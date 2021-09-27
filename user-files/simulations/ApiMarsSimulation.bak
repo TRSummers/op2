@@ -1,0 +1,33 @@
+package com.optum.gatlingframework.simulations
+
+import com.optum.gatlingframework.workflows.ApiMarsWorkflows
+import io.gatling.core.Predef._
+import io.gatling.core.structure.PopulationBuilder
+import io.gatling.http.Predef._
+
+class ApiMarsSimulation extends BaseSimulation {
+  var workflowNames = workflows.split(",")
+  if (workflows.toLowerCase.equals(ALL))
+    workflowNames = ApiMarsWorkflows.WORKFLOWS
+  var workflowPopulations: Array[PopulationBuilder] = new Array[PopulationBuilder](0)
+
+  for (workflow <- workflowNames) {
+    val workflowDetails = ApiMarsWorkflows.getWorkflowDefaultDetails(workflow, profile, environment)
+    workflowPopulations = workflowPopulations.+:(setupScenario(strategy,
+      "Excecuting " + workflowDetails.workflowName,
+      ApiMarsWorkflows.getWorkFlowThrottled(workflowDetails.workflowName,
+        profile,
+        environment,
+        workflowDetails.tpsThrottle / workflowDetails.users.toDouble),
+      workflowDetails))
+  }
+
+  setUp(workflowPopulations.toList)
+    .protocols(http.baseURL("https://trustbroker-stg-svcs.optum.com:8444"))
+    .assertions(global.successfulRequests.percent.gte(percent_success),
+      global.responseTime.percentile1.lte(fiftiethPercentileResponse),
+      global.responseTime.percentile2.lte(seventyFifthPercentileResponse),
+      global.responseTime.percentile3.lte(ninetyFifthPercentileResponse),
+      global.responseTime.percentile4.lte(ninetyNinthPercentileResponse))
+    .maxDuration(maxDurationSeconds seconds)
+}

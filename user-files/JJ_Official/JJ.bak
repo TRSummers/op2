@@ -1,0 +1,27 @@
+package JJ.Framework
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class JJ extends Simulation {
+
+	val httpProtocol = http
+		.baseUrl("https://jj-binks-cbasstg.origin-ctc-core.optum.com")
+		.inferHtmlResources()
+		.acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
+		.acceptEncodingHeader("gzip, deflate")
+		.acceptLanguageHeader("en-US,en;q=0.9")
+		.userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+
+	val scn = scenario("JJ")
+		.exec(http("NPI") .get("/api/v1/md-search?npi=1922555846") .headers(JJHeaders.headers_0))
+		.pause(1)
+		.exec(http("TIN") .get("/api/v1/md-search?tin=391128616") .headers(JJHeaders.headers_0))
+		.pause(1)
+		.exec(http("LName") .get("/api/v1/md-search?lastName=Smith&stateCode=WI") .headers(JJHeaders.headers_0))
+
+	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+}

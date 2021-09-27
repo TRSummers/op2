@@ -1,0 +1,1 @@
+{"query":"query ($primary_0: String!) {\n        user_tbl: user_tbl_by_pk (user_id: $primary_0) {\n          \n              first: fst_nm\n              last: lst_nm\n              avatar: phot_lobj\n            \n        }\n      }\n      ","variables":{"primary_0":"001679331"}}

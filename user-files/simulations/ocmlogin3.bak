@@ -1,0 +1,418 @@
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class ocmlogin3 extends Simulation {
+
+	val httpProtocol = http
+		.baseUrl("https://fonts.gstatic.com")
+		.inferHtmlResources()
+		.userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36")
+
+	val headers_0 = Map(
+		"Origin" -> "https://ogs.google.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_1 = Map(
+		"Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+		"Accept-Encoding" -> "gzip, deflate, br",
+		"Accept-Language" -> "en-US,en;q=0.9",
+		"Sec-Fetch-Dest" -> "iframe",
+		"Sec-Fetch-Mode" -> "navigate",
+		"Sec-Fetch-Site" -> "same-site",
+		"Upgrade-Insecure-Requests" -> "1",
+		"X-Client-Data" -> "CKG1yQEIi7bJAQiktskBCMS2yQEIqZ3KAQiN0coBCL36ygEIoKDLAQjv8ssBCM72ywEIj/fLAQi0+MsBCJf5ywEInvnLAQjy+csBCLD6ywEInf7LARiQnssB",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_2 = Map(
+		"accept" -> "*/*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "script",
+		"sec-fetch-mode" -> "no-cors",
+		"sec-fetch-site" -> "cross-site",
+		"x-client-data" -> "CKG1yQEIi7bJAQiktskBCMS2yQEIqZ3KAQiN0coBCL36ygEIoKDLAQjv8ssBCM72ywEIj/fLAQi0+MsBCJf5ywEInvnLAQjy+csBCLD6ywEInf7LARiQnssB")
+
+	val headers_5 = Map(
+		"accept" -> "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "image",
+		"sec-fetch-mode" -> "no-cors",
+		"sec-fetch-site" -> "cross-site",
+		"x-client-data" -> "CKG1yQEIi7bJAQiktskBCMS2yQEIqZ3KAQiN0coBCL36ygEIoKDLAQjv8ssBCM72ywEIj/fLAQi0+MsBCJf5ywEInvnLAQjy+csBCLD6ywEInf7LARiQnssB")
+
+	val headers_7 = Map(
+		"Accept" -> "*/*",
+		"Accept-Encoding" -> "gzip, deflate, br",
+		"Accept-Language" -> "en-US,en;q=0.9",
+		"Content-Type" -> "text/plain;charset=UTF-8",
+		"Origin" -> "https://www.google.com",
+		"Sec-Fetch-Dest" -> "empty",
+		"Sec-Fetch-Mode" -> "no-cors",
+		"Sec-Fetch-Site" -> "same-origin",
+		"X-Client-Data" -> "CKG1yQEIi7bJAQiktskBCMS2yQEIqZ3KAQiN0coBCL36ygEIoKDLAQjv8ssBCM72ywEIj/fLAQi0+MsBCJf5ywEInvnLAQjy+csBCLD6ywEInf7LARiQnssB",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_8 = Map(
+		"accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "document",
+		"sec-fetch-mode" -> "navigate",
+		"sec-fetch-site" -> "none",
+		"sec-fetch-user" -> "?1",
+		"upgrade-insecure-requests" -> "1")
+
+	val headers_9 = Map(
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_11 = Map(
+		"Origin" -> "https://stage-clinical.optum.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_26 = Map(
+		"accept" -> "*/*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "script",
+		"sec-fetch-mode" -> "no-cors",
+		"sec-fetch-site" -> "cross-site")
+
+	val headers_34 = Map(
+		"Accept" -> "application/json, text/plain, */*",
+		"Accept-Encoding" -> "gzip, deflate, br",
+		"Accept-Language" -> "en-US,en;q=0.9",
+		"Origin" -> "https://stage-clinical.optum.com",
+		"Sec-Fetch-Dest" -> "empty",
+		"Sec-Fetch-Mode" -> "cors",
+		"Sec-Fetch-Site" -> "cross-site",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_35 = Map(
+		"accept" -> "*/*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"origin" -> "https://stage-clinical.optum.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "cross-site")
+
+	val headers_38 = Map(
+		"accept" -> "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "image",
+		"sec-fetch-mode" -> "no-cors",
+		"sec-fetch-site" -> "same-origin")
+
+	val headers_40 = Map(
+		"accept" -> "*/*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"content-type" -> "application/x-www-form-urlencoded;charset=UTF-8",
+		"origin" -> "https://ogs.google.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "same-site",
+		"x-client-data" -> "CKG1yQEIi7bJAQiktskBCMS2yQEIqZ3KAQiN0coBCL36ygEIoKDLAQjv8ssBCM72ywEIj/fLAQi0+MsBCJf5ywEInvnLAQjy+csBCLD6ywEInf7LARiQnssB")
+
+	val headers_44 = Map(
+		"Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+		"Accept-Encoding" -> "gzip, deflate, br",
+		"Accept-Language" -> "en-US,en;q=0.9",
+		"Sec-Fetch-Dest" -> "document",
+		"Sec-Fetch-Mode" -> "navigate",
+		"Sec-Fetch-Site" -> "cross-site",
+		"Sec-Fetch-User" -> "?1",
+		"Upgrade-Insecure-Requests" -> "1",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_72 = Map(
+		"accept" -> "*/*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"access-control-request-headers" -> "content-type",
+		"access-control-request-method" -> "POST",
+		"origin" -> "https://stage-clinical.optum.com",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "same-site")
+
+	val headers_77 = Map(
+		"accept" -> "application/json, text/plain, */*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"content-type" -> "application/json",
+		"origin" -> "https://stage-clinical.optum.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "same-site")
+
+	val headers_78 = Map(
+		"accept" -> "application/json, text/plain, */*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"authorization" -> "Bearer eyJraWQiOiJkODdmMTY2OS0zYThjLTRiNjctOWI2NC1hOGIzODIyNzk2ZWYiLCJhbGciOiJSUzUxMiJ9.eyJ4LWVjcC1jbGFpbXMiOnsieC1lY3AtYXR0cnMiOnsiYXR0cmlidXRlcyI6e319LCJ4LWVjcC1hbHQtdXNlci1pZCI6InRzdW1tZTE3IiwieC1lY3AtY2xpLW9yZ3MiOlt7Im9yZy1pZCI6Im9iaF9hZHZjIiwiZnVuYy1yb2xlcyI6W3sicm9sZS1uYW1lIjoiY3Jpc2lzX2NhIiwiYXBwbC1yb2xlcyI6WyJjcmlzaXNfc3VwcG9ydF91c2VyIiwibWJyX21nbXRfd3JpdGUiLCJzZG9oX2JoX2NhIiwic3lzdGVtX21nbXRfdXNlciJdfV19XSwieC1lY3AtZmlyc3QtbmFtZSI6IlRob21hcyIsIngtZWNwLXR5cGUiOiJQQVNTV09SRCIsIngtZWNwLXVzZXItaWQiOiIwMDE2NzkzMzEiLCJ4LWVjcC1lbWFpbCI6InRob21hcy5zdW1tZXJzQG9wdHVtLmNvbSIsIngtZWNwLWxhc3QtbmFtZSI6IlN1bW1lcnMiLCJ4LWVjcC1zb3VyY2UiOiJtc2lkIn0sImh0dHBzOlwvXC9oYXN1cmEuaW9cL2p3dFwvY2xhaW1zIjp7IngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6ImNyaXNpc19zdXBwb3J0X3VzZXIiLCJ4LWhhc3VyYS1mdWxsLW5hbWUiOiJUaG9tYXMgU3VtbWVycyIsIngtaGFzdXJhLWxhc3QtbmFtZSI6IlN1bW1lcnMiLCJ4LWhhc3VyYS1jbGktb3JnIjoib2JoX2FkdmMiLCJ4LWhhc3VyYS11c2VyLWlkIjoiMDAxNjc5MzMxIiwieC1oYXN1cmEtYWx0LXVzZXItaWQiOiJ0c3VtbWUxNyIsIngtaGFzdXJhLWZpcnN0LW5hbWUiOiJUaG9tYXMiLCJ4LWhhc3VyYS1mdW5jLXJvbGUiOiJjcmlzaXNfY2EiLCJ4LWhhc3VyYS1hbGxvd2VkLXJvbGVzIjpbImNyaXNpc19zdXBwb3J0X3VzZXIiLCJtYnJfbWdtdF93cml0ZSIsInNkb2hfYmhfY2EiLCJzeXN0ZW1fbWdtdF91c2VyIl19LCJzY29wZSI6Im9wZW5pZCIsImlzcyI6ImVjcC1zdGFnZSIsImV4cCI6MTYzMDQyMzg2MywiY2xpZW50X2lkIjoiZWNwX3BsYXRmb3JtIn0.D80G7CPKvjfsjjdl-dVgQwlnodfs8D9yMl-5Vc52p8LQUPS-lhkYdH_YQd8WpSANMHDZG-e5O9sL8D4Tvsr8fQ2zV4SSTE8pMFSIsX3mCbpbxNVz_adi_BEGOTxXUiVE_rLrvtHZp_Ht53d5VrYc6JCGy3-qSQlMfcCuUXGsNhw_jEL2vnSmmcwsggYkoeWyDAls59B1LzEz8LknBv0F1vna66nSTgPua2YVxJwUWgZZ8ku3vDZkJ9fVrcDpil3ZwhyUCRddY3F7Dcjy0_9_oBG7faNU_qxrG09bnEBHtBamlJvUPVcHQU0v137ZlU2FCEJJXc8uQwXlbVAQDW3iHg",
+		"content-type" -> "text/plain",
+		"origin" -> "https://stage-clinical.optum.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "same-site",
+		"x-hasura-role" -> "system_mgmt_user")
+
+	val headers_80 = Map(
+		"accept" -> "application/json, text/plain, */*",
+		"accept-encoding" -> "gzip, deflate, br",
+		"accept-language" -> "en-US,en;q=0.9",
+		"content-type" -> "application/json",
+		"origin" -> "https://stage-clinical.optum.com",
+		"sec-ch-ua" -> """Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92""",
+		"sec-ch-ua-mobile" -> "?0",
+		"sec-fetch-dest" -> "empty",
+		"sec-fetch-mode" -> "cors",
+		"sec-fetch-site" -> "same-origin",
+		"x-hasura-admin-secret" -> "usermanagementsecretkey")
+
+    val uri01 = "https://stage-clinical.optum.com"
+    val uri02 = "https://d3js.org/d3.v3.min.js"
+    val uri03 = "https://code.jquery.com"
+    val uri04 = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    val uri05 = "https://www.google.com/gen_204"
+    val uri06 = "https://www.gstatic.com/_/mss/boq-one-google/_/js/k=boq-one-google.OneGoogleWidgetUi.en.vy1erEPzf1k.es5.O"
+    val uri07 = "https://fonts.googleapis.com"
+    val uri08 = "https://play.google.com/log"
+    val uri09 = "https://stage-ecp-api.optum.com"
+    val uri10 = "https://unpkg.com/@ungap"
+    val uri11 = "https://stg-omnidigital.uhc.com/OptumVirtualCare"
+    val uri12 = "https://ogs.google.com/widget/app/so"
+    val uri13 = "https://znelyuf0uplzmy0bi-uhg1.siteintercept.qualtrics.com/SIE"
+    val uri14 = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    val uri15 = "https://cdn.jsdelivr.net/npm"
+    val uri16 = "https://authgateway3-stg.entiam.uhg.com"
+    val uri18 = "https://siteintercept.qualtrics.com"
+    val uri19 = "https://ssl.gstatic.com/gb/images/p2_fda98f05.png"
+
+	val scn = scenario("ocmlogin3")
+		.exec(http("request_0")
+			.get("/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2")
+			.headers(headers_0)
+		.exec(http("request_1") .get(uri12 + "?bc=1&origin=https%3A%2F%2Fwww.google.com&cn=app&pid=1&spid=538&hl=en") .headers(headers_1))
+            	.exec(http("request_2") .get(uri06 + "/am=WAAAEA/d=1/excm=_b,_tp,appwidgetnoauthview/ed=1/dg=0/wt=2/rs=AM-SdHsjPQvZfWgIb5gc-o-AzXc-I5fITQ/m=_b,_tp") .headers(headers_2))
+            	.exec(http("request_3") .get(uri06 + "/ck=boq-one-google.OneGoogleWidgetUi.OyEvwwA-4lQ.L.B1.O/am=WAAAEA/d=1/exm=_b,_tp/excm=_b,_tp,appwidgetnoauthview/ed=1/wt=2/rs=AM-SdHttN15RjuJKMsQkC3e6rQPc3CN7aQ/m=byfTOb,lsjVmc,LEikZe") .headers(headers_2))
+            	.exec(http("request_4")
+			.get(uri06 + "/ck=boq-one-google.OneGoogleWidgetUi.OyEvwwA-4lQ.L.B1.O/am=WAAAEA/d=1/exm=LEikZe,_b,_tp,byfTOb,lsjVmc/excm=_b,_tp,appwidgetnoauthview/ed=1/wt=2/rs=AM-SdHttN15RjuJKMsQkC3e6rQPc3CN7aQ/m=n73qwf,ws9Tlc,IZT63,e5qFLc,GkRiKb,UUJqVe,O1Gjze,xUdipf,blwjVc,fKUV3e,aurFic,COQbmf,U0aPgd,ZwDk9d,V3dDOb,mI3LFb,O6y8ed,PrPYRd,MpJwZc,NwH0H,OmgaI,lazG7b,XVMNvd,L1AAkb,KUM7Z,lfpdyf,s39S4,lwddkf,gychg,w9hDv,RMhBfe,SdcwHb,aW3pY,PQaYAf,pw70Gc,EFQ78c,Ulmmrd,ZfAoz,mdR7q,MdUzUe,xQtZb,lPKSwe,JNoxi,MI6k7c,kjKdXe,yDVVkb,QIhFr,hKSk3e,KG2eXe,hc6Ubd,SpsfSb,VwDzFe,zbML3c,A7fCU,Uas9Hd,BVgquf,lsPsHb,pjICDe,aDfbSd") .headers(headers_2))
+            	.exec(http("request_5") .get(uri19) .headers(headers_5))
+            	.exec(http("request_6"j
+			.get(uri06 + "/ck=boq-one-google.OneGoogleWidgetUi.OyEvwwA-4lQ.L.B1.O/am=WAAAEA/d=1/exm=A7fCU,BVgquf,COQbmf,EFQ78c,GkRiKb,IZT63,JNoxi,KG2eXe,KUM7Z,L1AAkb,LEikZe,MI6k7c,MdUzUe,MpJwZc,NwH0H,O1Gjze,O6y8ed,OmgaI,PQaYAf,PrPYRd,QIhFr,RMhBfe,SdcwHb,SpsfSb,U0aPgd,UUJqVe,Uas9Hd,Ulmmrd,V3dDOb,VwDzFe,XVMNvd,ZfAoz,ZwDk9d,_b,_tp,aDfbSd,aW3pY,aurFic,blwjVc,byfTOb,e5qFLc,fKUV3e,gychg,hKSk3e,hc6Ubd,kjKdXe,lPKSwe,lazG7b,lfpdyf,lsPsHb,lsjVmc,lwddkf,mI3LFb,mdR7q,n73qwf,pjICDe,pw70Gc,s39S4,w9hDv,ws9Tlc,xQtZb,xUdipf,yDVVkb,zbML3c/excm=_b,_tp,appwidgetnoauthview/ed=1/wt=2/rs=AM-SdHttN15RjuJKMsQkC3e6rQPc3CN7aQ/m=Wt6vjf,_latency,FCpbqb,WhJNk")
+			.headers(headers_2)))
+		.pause(12)
+		.exec(http("request_7")
+			.post(uri05 + "?atyp=i&ei=8kMuYbXhL5CO9PwPpN6VuAg&ct=slh&v=t1&pv=0.5794224074727925&me=7:1630422012623,V,0,0,0,0:1093,h,1,1,i:106,h,1,1,o:4,h,1,1,i:179,h,1,1,o:14135,e,U&zx=1630422028141")
+			.headers(headers_7))
+		.exec(http("request_8") .get(uri01 + "/login") .headers(headers_8))
+            http("request_9") .get(uri07 + "/css2?family=Roboto:wght@300;400;500&display=swap") .headers(headers_9),
+            http("request_10") .get(uri07 + "/icon?family=Material+Icons") .headers(headers_9),
+            http("request_11") .get(uri04) .headers(headers_11),
+            http("request_12") .get(uri14) .headers(headers_11),
+            http("request_13") .get(uri03 + "/jquery-3.3.1.slim.min.js") .headers(headers_11),
+            http("request_14") .get(uri15 + "/zone.js@0.10.3/dist/zone.min.js") .headers(headers_9),
+            http("request_15") .get(uri11 + "/styles/omni-chat-widget.css") .headers(headers_9),
+            http("request_16") .get(uri15 + "/zone.js@0.10.3/dist/webapis-rtc-peer-connection.min.js") .headers(headers_9),
+            http("request_17") .get(uri15 + "/zone.js@0.10.3/dist/zone-patch-user-media.js") .headers(headers_9),
+            http("request_18") .get(uri15 + "/regenerator-runtime@0.13.5/runtime.min.js") .headers(headers_9),
+            http("request_19") .get(uri15 + "/import-map-overrides@1.14.6/dist/import-map-overrides.js") .headers(headers_9),
+            http("request_20") .get(uri15 + "/systemjs@6.3.1/dist/system.min.js") .headers(headers_9),
+            http("request_21") .get(uri03 + "/jquery-2.2.4.min.js") .headers(headers_9),
+            http("request_22") .get(uri15 + "/systemjs@6.3.1/dist/extras/amd.min.js") .headers(headers_9),
+            http("request_23") .get(uri02) .headers(headers_9),
+            http("request_24") .get(uri15 + "/systemjs@6.3.1/dist/extras/named-exports.min.js") .headers(headers_9),
+            http("request_25") .get(uri15 + "/core-js-bundle@3.6.5/minified.min.js") .headers(headers_9),
+            http("request_26") .get(uri10 + "/global-this") .headers(headers_26),
+            http("request_27") .get(uri10 + "/global-this@0.4.4"),
+            http("request_28") .get(uri11 + "/scripts/omni-chat-widget.js") .headers(headers_9),
+            http("request_29") .get(uri01 + "/ecp-root-config.js") .headers(headers_11),
+            http("request_30") .get(uri15 + "/single-spa@5.5.0/lib/system/single-spa.min.js") .headers(headers_11),
+            http("request_31") .get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/main.js") .headers(headers_11),
+            http("request_32") .get(uri13 + "/?Q_ZID=ZN_elYUf0UpLzmy0bI") .headers(headers_26),
+            http("request_33") .get(uri18 + "/dxjsmodule/11.50cce3eb2b28e5784da7.chunk.js?Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web&Q_BRANDID=stage-clinical.optum.com") .headers(headers_9),
+            http("request_34") .get(uri16 + "/.well-known/openid-configuration") .headers(headers_34),
+            http("request_35") .post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web") .headers(headers_35)
+			.formParam("Q_LOC", "https://stage-clinical.optum.com/login"), http("request_36") .get(uri16 + "/pf/JWKS") .headers(headers_34),
+            http("request_37") .get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/micro-interaction-icons.woff") .headers(headers_11),
+            http("request_38") .get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/assets/images/optum-logo.png") .headers(headers_38),
+            http("request_39") .post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web") .headers(headers_35)
+			.formParam("Q_LOC", "https://stage-clinical.optum.com/login"), http("request_40") .post(uri08 + "?format=json&hasfast=true") .headers(headers_40)
+			.formParam("""[[1,null,null,null,null,null,null,null,null,null,[null,null,null,null,"en",null,"boq_onegooglehttpserver_20210830.04_p0"]],241,[["1630422015775",null,[],null,null,null,null,"[1630422015770,[[\"2397168675742140944\",null,[[1320,1]]],[\"16147638372540442232\",null,[[1378,1]]],[\"14719340685975485085\",null,[[1560,1]]],[\"17077408715954654437\",null,[[1859,1]]],[\"3318688667027929436\",null,[[1377,1]]],[\"5790177495296899286\",null,[[66,1]]],[\"16829267986558572790\",null,[[320,1]]],[\"16339156775003354937\",null,[[193,1]]],[\"749851692583976763\",null,[[788,1]]],[\"15419336178855610526\",null,[[588,1]]],[\"17276521865292187132\",null,[[3,1]]],[\"8257051839445688306\",null,[[1859,1]]],[\"7792735449360349632\",null,[[1860,1]]],[\"7094487270460551484\",null,[[5,1]]],[\"12563104964214410683\",null,[[537,1]]],[\"15605813632677093659\",null,[[213,1]]],[\"17914751415692637656\",null,[[5,1]]],[\"9797767207516844257\",null,[[0,1]]],[\"14906952326733574741\",null,[[2,1]]],[\"4891744519482609478\",null,[[530,1]]],[\"14307859671070593733\",null,[[266,1]]],[\"7494582641517049914\",null,[[2,1]]],[\"6667106912793420619\",null,[[0,1]]],[\"10118692516388306266\",null,[[0,1]]],[\"6342145065879578001\",null,[[3,1]]],[\"13596961294000664596\",null,[[438,1]]],[\"2107494750385856652\",null,[[178,1]]],[\"1309831198388189068\",null,[[3,1]]],[\"522022639063469804\",null,[[0,1]]],[\"4950535922500196698\",null,[[4096,1]]],[\"1757184925777806825\",null,[[16,1]]],[\"3079121564595244695\",null,[[14,1]]],[\"10652791942255425261\",null,[[11360,1]]],[\"4132870161583308123\",null,[[114,1]]]],null,null,\"[1,\\\"HATY7b_PL\\\"]\"]",null,null,null,379382319,null,null,18000,[null,[],null,"[[],[],[1763433,1772879,45814370],[]]"],null,null,null,[],1,null,null,null,null,null,[]]],"1630422015776",[],null,null,null,null,null,null,null,null,0]""", "")))
+		.pause(28)
+		.exec(http("request_41")
+			.get(uri16 + "/.well-known/openid-configuration")
+			.headers(headers_34)
+			.resources(http("request_42")
+			.get(uri16 + "/pf/JWKS")
+			.headers(headers_34),
+            http("request_43")
+			.post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web")
+			.headers(headers_35)
+			.formParam("Q_LOC", "https://stage-clinical.optum.com/login"),
+            http("request_44")
+			.get(uri16 + "/as/authorization.oauth2?response_type=code&client_id=Reg3Stg_ECP&state=WXpLOXpIYlhLfnd2X0dESWFRNk9IcGdGZzhhS1lsM1RBWko0QzRoSTRURlli&redirect_uri=https%3A%2F%2Fstage-clinical.optum.com&scope=openid%20profile%20address%20email%20phone&code_challenge=_5rPMuHv4dfTVB1k6P3j9WgksEvUmuS9KLpuZrJOiw0&code_challenge_method=S256&nonce=WXpLOXpIYlhLfnd2X0dESWFRNk9IcGdGZzhhS1lsM1RBWko0QzRoSTRURlli&acr_values=R3_AAL2_RBA_EXT_INT")
+			.headers(headers_44),
+            http("request_45")
+			.get(uri03 + "/jquery-3.3.1.slim.min.js")
+			.headers(headers_11),
+            http("request_46")
+			.get(uri04)
+			.headers(headers_11),
+            http("request_47")
+			.get(uri14)
+			.headers(headers_11),
+            http("request_48")
+			.get(uri15 + "/zone.js@0.10.3/dist/zone.min.js")
+			.headers(headers_9),
+            http("request_49")
+			.get(uri15 + "/zone.js@0.10.3/dist/webapis-rtc-peer-connection.min.js")
+			.headers(headers_9),
+            http("request_50")
+			.get(uri15 + "/zone.js@0.10.3/dist/zone-patch-user-media.js")
+			.headers(headers_9),
+            http("request_51")
+			.get(uri07 + "/css2?family=Roboto:wght@300;400;500&display=swap")
+			.headers(headers_9),
+            http("request_52")
+			.get(uri02)
+			.headers(headers_9),
+            http("request_53")
+			.get(uri15 + "/regenerator-runtime@0.13.5/runtime.min.js")
+			.headers(headers_9),
+            http("request_54")
+			.get(uri03 + "/jquery-2.2.4.min.js")
+			.headers(headers_9),
+            http("request_55")
+			.get(uri15 + "/import-map-overrides@1.14.6/dist/import-map-overrides.js")
+			.headers(headers_9),
+            http("request_56")
+			.get(uri15 + "/systemjs@6.3.1/dist/system.min.js")
+			.headers(headers_9),
+            http("request_57")
+			.get(uri15 + "/systemjs@6.3.1/dist/extras/amd.min.js")
+			.headers(headers_9),
+            http("request_58")
+			.get(uri15 + "/systemjs@6.3.1/dist/extras/named-exports.min.js")
+			.headers(headers_9),
+            http("request_59")
+			.get(uri15 + "/core-js-bundle@3.6.5/minified.min.js")
+			.headers(headers_9),
+            http("request_60")
+			.get(uri07 + "/icon?family=Material+Icons")
+			.headers(headers_9),
+            http("request_61")
+			.get(uri11 + "/styles/omni-chat-widget.css")
+			.headers(headers_9),
+            http("request_62")
+			.get(uri11 + "/scripts/omni-chat-widget-settings.js")
+			.headers(headers_9),
+            http("request_63")
+			.get(uri11 + "/scripts/omni-chat-widget.js")
+			.headers(headers_9),
+            http("request_64")
+			.get(uri10 + "/global-this")
+			.headers(headers_26),
+            http("request_65")
+			.get(uri01 + "/ecp-root-config.js")
+			.headers(headers_11),
+            http("request_66")
+			.get(uri15 + "/single-spa@5.5.0/lib/system/single-spa.min.js")
+			.headers(headers_11),
+            http("request_67")
+			.get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/main.js")
+			.headers(headers_11),
+            http("request_68")
+			.get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/micro-interaction-icons.woff")
+			.headers(headers_11),
+            http("request_69")
+			.get(uri16 + "/.well-known/openid-configuration") .headers(headers_34),
+            http("request_70") .get(uri16 + "/pf/JWKS") .headers(headers_34),
+            http("request_71")
+			.post(uri16 + "/as/token.oauth2")
+			.headers(headers_34)
+			.formParam("grant_type", "authorization_code")
+			.formParam("code", "K6H4ozr214_3lewDGDSNHziSXgdFMi9WEwYAAAEz")
+			.formParam("redirect_uri", "https://stage-clinical.optum.com")
+			.formParam("code_verifier", "NjVYSnFLdEJtWmFBTEJUSFNBRkdZdm9MWGVfelJwbDB4cmtuTEpsb3F4Yzhw")
+			.formParam("client_id", "Reg3Stg_ECP")
+			.formParam("client_secret", "QQ8C0orMt8hgwiobotPjVm2oFzm3orxp6gRB6vwZGhbBXAscB41GBwsg4ztbCQVX")
+			.formParam("acr_values", "R3_AAL2_RBA_EXT_INT"),
+            http("request_72")
+			.options(uri09 + "/auth/oauth/token?grant_type=password&source=msid&client_secret=ecp_platform&client_id=ecp_platform&access=eyJhbGciOiJSUzI1NiIsImtpZCI6IjEiLCJwaS5hdG0iOiJodzhuIn0.eyJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGFkZHJlc3MgZW1haWwgcGhvbmUiLCJjbGllbnRfaWQiOiJSZWczU3RnX0VDUCIsImlzcyI6Imh0dHBzOi8vYXV0aGdhdGV3YXkxLXN0Zy5lbnRpYW0udWhnLmNvbSIsImFjciI6IlIzX0FBTDJfUkJBX0VYVF9JTlQiLCJtZWRleGVtcGxveWVlSUQiOiJub3QtbWVkZXgtdXNlciIsInN1YiI6IkNOPXRzdW1tZTE3LENOPVVzZXJzLERDPW1zLERDPWRzLERDPXVoYyxEQz1jb20iLCJtZWRleGxhc3ROYW1lIjoibm90LW1lZGV4LXVzZXIiLCJtZWRleGVtYWlsIjoibm90LW1lZGV4LXVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoidHN1bW1lMTciLCJtZWRleGZpcnN0TmFtZSI6Im5vdC1tZWRleC11c2VyIiwibWVkZXhpZCI6Im5vdC1tZWRleC11c2VyIiwieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6Ik5vIEdyb3VwcyIsImV4cCI6MTYzMDQyMzg2M30.Ei3e4fVcWxWLY-PqaVv4w5wC5SplMWjW-yitsPW7I0ETPLH3a01pCaEcJ3zwHI7JaLag4h_xOikt3G5ahmyrm13G-SouWxrCRmG5wO5rMoR7TT_vtZpBbB7lzEOMyY-5Tl35lG_O-32RKb1OygIU7CtqC1jEn18xzc59e2tC5XmSlU1lQaJHX2oAqfMcUNshxP1_L6vVPIeXaYb1tvRq0_xisasvsk2rj_Ky5T5ACvJt6LVbhMZQl3EeTCzk0lxsCrgSboGxRuUVFFGvBiUKvvsEJGXIKO8E0vPgBjkvGOnfUiQasxKe1MzHBbJDzRs9oLUSbqyT5PnCslQ5XlQxBA&org=obh_advc&role=crisis_ca")
+			.headers(headers_72),
+            http("request_73") .get(uri01 + "/microproduct/user-management-ui-service.default.svc.cluster.local/assets/images/optum-logo.png") .headers(headers_38),
+            http("request_74") .get(uri13 + "/?Q_ZID=ZN_elYUf0UpLzmy0bI") .headers(headers_26),
+            http("request_75") .get(uri18 + "/dxjsmodule/11.50cce3eb2b28e5784da7.chunk.js?Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web&Q_BRANDID=stage-clinical.optum.com") .headers(headers_9),
+            http("request_76") .post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web") .headers(headers_35) .formParam("Q_LOC", "https://stage-clinical.optum.com/login"),
+            http("request_77") .post(uri09 + "/auth/oauth/token?grant_type=password&source=msid&client_secret=ecp_platform&client_id=ecp_platform&access=eyJhbGciOiJSUzI1NiIsImtpZCI6IjEiLCJwaS5hdG0iOiJodzhuIn0.eyJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGFkZHJlc3MgZW1haWwgcGhvbmUiLCJjbGllbnRfaWQiOiJSZWczU3RnX0VDUCIsImlzcyI6Imh0dHBzOi8vYXV0aGdhdGV3YXkxLXN0Zy5lbnRpYW0udWhnLmNvbSIsImFjciI6IlIzX0FBTDJfUkJBX0VYVF9JTlQiLCJtZWRleGVtcGxveWVlSUQiOiJub3QtbWVkZXgtdXNlciIsInN1YiI6IkNOPXRzdW1tZTE3LENOPVVzZXJzLERDPW1zLERDPWRzLERDPXVoYyxEQz1jb20iLCJtZWRleGxhc3ROYW1lIjoibm90LW1lZGV4LXVzZXIiLCJtZWRleGVtYWlsIjoibm90LW1lZGV4LXVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoidHN1bW1lMTciLCJtZWRleGZpcnN0TmFtZSI6Im5vdC1tZWRleC11c2VyIiwibWVkZXhpZCI6Im5vdC1tZWRleC11c2VyIiwieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6Ik5vIEdyb3VwcyIsImV4cCI6MTYzMDQyMzg2M30.Ei3e4fVcWxWLY-PqaVv4w5wC5SplMWjW-yitsPW7I0ETPLH3a01pCaEcJ3zwHI7JaLag4h_xOikt3G5ahmyrm13G-SouWxrCRmG5wO5rMoR7TT_vtZpBbB7lzEOMyY-5Tl35lG_O-32RKb1OygIU7CtqC1jEn18xzc59e2tC5XmSlU1lQaJHX2oAqfMcUNshxP1_L6vVPIeXaYb1tvRq0_xisasvsk2rj_Ky5T5ACvJt6LVbhMZQl3EeTCzk0lxsCrgSboGxRuUVFFGvBiUKvvsEJGXIKO8E0vPgBjkvGOnfUiQasxKe1MzHBbJDzRs9oLUSbqyT5PnCslQ5XlQxBA&org=obh_advc&role=crisis_ca")
+			.headers(headers_77)
+			.body(RawFileBody("/ocmlogin3/0077_request.json")),
+            http("request_78")
+			.post(uri09 + "/user/v1/graphql")
+			.headers(headers_78)
+			.body(RawFileBody("/ocmlogin3/0078_request.txt")),
+            http("request_79")
+			.post(uri09 + "/user/v1/graphql")
+			.headers(headers_78)
+			.body(RawFileBody("/ocmlogin3/0079_request.txt")),
+            http("request_80")
+			.post(uri01 + "/rootconfig")
+			.headers(headers_80)
+			.body(RawFileBody("/ocmlogin3/0080_request.json")),
+            http("request_81")
+			.post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web")
+			.headers(headers_35)
+			.formParam("Q_LOC", "https://stage-clinical.optum.com/user-dashboard-v2"),
+            http("request_82")
+			.post(uri09 + "/user/v1/graphql")
+			.headers(headers_78)
+			.body(RawFileBody("/ocmlogin3/0082_request.txt")),
+            http("request_83")
+			.post(uri09 + "/user/v1/graphql")
+			.headers(headers_78)
+			.body(RawFileBody("/ocmlogin3/0083_request.txt")),
+            http("request_84")
+			.post(uri18 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_elYUf0UpLzmy0bI&Q_CLIENTVERSION=1.59.0&Q_CLIENTTYPE=web")
+			.headers(headers_35)
+			.formParam("Q_LOC", "https://stage-clinical.optum.com/user/dashboard/apps"),
+            http("request_85")
+			.post(uri09 + "/user/v1/graphql")
+			.headers(headers_78)
+			.body(RawFileBody("/ocmlogin3/0085_request.txt"))))
+
+	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+}

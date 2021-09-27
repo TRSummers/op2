@@ -1,0 +1,59 @@
+// Seach by active Member
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class Star3 extends Simulation {
+
+	val httpProtocol = http
+		.baseUrl("https://coho-advocate-ui-coho-qa3.origin-elr-core-nonprod.optum.com")
+		.inferHtmlResources()
+		.acceptHeader("application/json, text/plain, */*")
+		.acceptEncodingHeader("gzip, deflate")
+		.acceptLanguageHeader("en-US,en;q=0.9")
+		.userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+
+	val headers_0 = Map(
+		"Accept" -> "*/*",
+		"If-Modified-Since" -> "Fri, 19 Mar 2021 22:04:26 GMT",
+		"Sec-Fetch-Dest" -> "script",
+		"Sec-Fetch-Mode" -> "no-cors",
+		"Sec-Fetch-Site" -> "same-origin",
+		"sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_1 = Map(
+		"Cache-Control" -> "no-cache",
+		"Content-Type" -> "application/json,application/json;charset=utf8,application/json",
+		"Expires" -> "Sat, 01 Jan 2000 00:00:00 GMT",
+		"Pragma" -> "no-cache",
+		"Sec-Fetch-Dest" -> "empty",
+		"Sec-Fetch-Mode" -> "cors",
+		"Sec-Fetch-Site" -> "same-origin",
+		"sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""",
+		"sec-ch-ua-mobile" -> "?0")
+
+
+
+	val scn = scenario("Star3")
+// Landing page - Select Search by active Member
+		.exec(http("request_0")
+			.get("/3-es2015.62eec2aa178c07cbaa37.js")
+			.headers(headers_0)
+			.resources(http("request_1")
+			.get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null")
+			.headers(headers_1)))
+		.pause(29)
+//  Search by active Member (Thomas)
+		.exec(http("request_0")
+		.exec(http("request_2")
+			.get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=thoma&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null")
+			.headers(headers_1)
+			.resources(http("request_3")
+			.get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=thomas&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null")
+			.headers(headers_1)))
+
+	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+}

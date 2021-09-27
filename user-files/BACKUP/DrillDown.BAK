@@ -1,0 +1,61 @@
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class DrillDown extends Simulation {
+
+	val httpProtocol = http
+		.baseUrl("https://coho-advocate-ui-coho-qa3.origin-elr-core-nonprod.optum.com")
+		.inferHtmlResources()
+		.acceptHeader("application/json, text/plain, */*")
+		.acceptEncodingHeader("gzip, deflate")
+		.acceptLanguageHeader("en-US,en;q=0.9")
+		.contentTypeHeader("application/json")
+		.userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+
+	val headers_0 = Map(
+		"Cache-Control" -> "no-cache",
+		"Expires" -> "Sat, 01 Jan 2000 00:00:00 GMT",
+		"Pragma" -> "no-cache",
+		"Sec-Fetch-Dest" -> "empty",
+		"Sec-Fetch-Mode" -> "cors",
+		"Sec-Fetch-Site" -> "same-origin",
+		"sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""",
+		"sec-ch-ua-mobile" -> "?0")
+
+	val headers_2 = Map(
+		"Cache-Control" -> "no-cache",
+		"Content-Type" -> "application/json,application/json;charset=utf8,application/json",
+		"Expires" -> "Sat, 01 Jan 2000 00:00:00 GMT",
+		"Pragma" -> "no-cache",
+		"Sec-Fetch-Dest" -> "empty",
+		"Sec-Fetch-Mode" -> "cors",
+		"Sec-Fetch-Site" -> "same-origin",
+		"sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""",
+		"sec-ch-ua-mobile" -> "?0")
+
+
+
+	val scn = scenario("DrillDown")
+//Select Member by ID
+
+		.exec(http("request_0")
+			.get("/star/api/v1/api/v1/concierge-accounts")
+			.headers(headers_0)
+			.resources(http("request_1")
+			.get("/jjb/api/v1/rest/member-search?memberId=2003330312")
+			.headers(headers_0),
+            http("request_2")
+			.get("/star/api/v1/api/v1/episode-of-care/members/census?id=2003330312&condensedView=true&size=5&page=0&sort=createDateTime,desc&regularSort=false&formType=null")
+			.headers(headers_2)))
+		.pause(21)
+//DrillDown Detail
+		.exec(http("request_3")
+			.get("/star/api/v1/api/v1/clinical-review/64881")
+			.headers(headers_0))
+
+	setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
+}

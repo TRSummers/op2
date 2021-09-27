@@ -1,0 +1,142 @@
+package Boo2.Framework
+
+import scala.concurrent.duration._
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+import scala.util.Random
+
+object Boo2Pages{
+
+    val uri1 = "https://identity.nonprod.onehealthcareid.com"
+    val uri2 = "https://rba.onehealthcareid.com/fp"
+    val uri4 = "https://bam.nr-data.net/events/1/4351a748a3"
+    val uri5 = "https://siteintercept.qualtrics.com"
+    val uri6 = "https://zn0bmwyygqj34mcyz-uhg1.siteintercept.qualtrics.com/WRSiteInterceptEngine"
+    val uri7 = "https://co1.qualtrics.com/WRQualtricsSiteIntercept/Graphic.php"
+
+//************************************************************************************ 
+//**** Sets the common pause, commonly referred to as "Think Time" between 35 and 60 sconds
+//************************************************************************************ 
+
+	val CommonPause = pause(1,2)
+
+
+//*********************
+//***** Login
+//*********************
+
+        val Login=group("Login"){
+            exec(http("LOGIN") .post(uri1 + "/api/v1/auth/authenticate") .headers(Boo2Headers.headers_0) .body(RawFileBody("0000_request.json")) .resources(http("request_1") .get(uri1 + "/app/static/js/postlogin-b308b58c4c.min.js") .headers(Boo2Headers.headers_1))
+            .exec(http("request_2") .get(uri1 + "/app/common/i18n/en_US.json") .headers(Boo2Headers.headers_2))
+            .exec(http("request_3") .post(uri4 + "?a=310075815&sa=1&v=1123.df1c7f8&t=Unnamed%20Transaction&rst=52882&ref=https://identity.nonprod.onehealthcareid.com/app/index.html") .headers(Boo2Headers.headers_3) .body(RawFileBody("0003_request.txt")))
+            .exec(http("request_4") .get(uri1 + "/tenants/onehealthcareid/logos/favicon.ico") .headers(Boo2Headers.headers_4))
+            .exec(http("request_5") .get(uri1 + "/app/error.html") .headers(Boo2Headers.headers_4))
+            .exec(http("request_6") .post(uri1 + "/oidc/auth/callback") .headers(Boo2Headers.headers_6) .formParam("grantId", "pxvcljvqaxvfmyxavaxswcma"))
+            .exec(http("request_9") .post(uri2 + "/clear.png?org_id=4m4bj5d2&session_id=59b69704-db41-4c23-876e-1e292894e5bb&nonce=688722f4d497dcbb") .headers(Boo2Headers.headers_9) .body(RawFileBody("0009_request.txt")))
+            .exec(http("request_10") .get("/trans/optumLoggedIn.uol?code=zrrnhYoeTBVzqNS7U39rlLCOhAtqvCsk") .headers(Boo2Headers.headers_10))
+            .exec(http("request_11") .get("/trans/css/uolStyle.css") .headers(Boo2Headers.headers_11))
+            .exec(http("request_12") .get("/trans/css/tabs.css") .headers(Boo2Headers.headers_11))
+            .exec(http("request_13") .get("/trans/commons/new-ui/css/home-bar.css") .headers(Boo2Headers.headers_11))
+            .exec(http("request_14") .get("/trans/javascripts/tabcontent.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_15") .get("/trans/javascripts/autoTab.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_16") .get("/trans/javascripts/sso.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_17") .get("/trans/javascripts/jquery-te-1.4.0.min.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_18") .get("/trans/javascripts/jquery.validate.min-1.9.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_19") .get("/trans/commons/new-ui/images/clinician_information/u378.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_20") .get("/trans/commons/new-ui/images/clinician_information/u640.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_21") .get("/trans/css/uolStyle.css") .headers(Boo2Headers.headers_11))
+            .exec(http("request_22") .get("/trans/commons/new-ui/images/clinician_information/u614.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_23") .get("/trans/commons/new-ui/images/clinician_information/u612.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_24") .get("/trans/images/loading.gif") .headers(Boo2Headers.headers_19))
+            .exec(http("request_25") .get("/trans/commons/new-ui/js/jquery-3.3.1.slim.min.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_26") .get("/trans/commons/new-ui/images/clinician_information/u391.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_27") .get("/trans/javascripts/jquery-1.9.1.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_28") .get("/trans/commons/new-ui/images/clinician_information/u493.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_29") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u526_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_30") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u540_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_31") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u588_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_32") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u569_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_33") .get("/trans/javascripts/jquery-ui.js") .headers(Boo2Headers.headers_14))
+            .exec(http("request_34") .get("/trans/commons/new-ui/images/clinician_information/u614.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_35") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u497_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_36") .get("/trans/commons/new-ui/images/clinician_information/primarynav5_more_u491_mouseOver.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_37") .get("/trans/commons/new-ui/images/clinician_information/u372.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_38") .get("/trans/commons/new-ui/images/clinician_information/u493.png") .headers(Boo2Headers.headers_19))
+            .exec(http("request_39") .get("/trans/images/shadeactive.gif") .headers(Boo2Headers.headers_19))
+            .exec(http("request_40") .get("/trans/html/images/shade.gif") .headers(Boo2Headers.headers_19) .check(status.is(404)))
+            .exec(http("request_41") .get("/trans/images/bkShadow.jpg") .headers(Boo2Headers.headers_19))
+            .exec(http("request_42") .get(uri6 + "/?Q_ZID=ZN_0BMwYygqJ34McYZ&Q_LOC=https%3A%2F%2Fohpe-test3.optum.com%2Ftrans%2FmainMenu.uol&t=1623278988536") .headers(Boo2Headers.headers_42))
+            .exec(http("request_43") .post(uri5 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_0BMwYygqJ34McYZ&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_43) .formParam("Q_LOC", "https://ohpe-test3.optum.com/trans/mainMenu.uol"))
+            .exec(http("request_44") .get(uri5 + "/dxjsmodule/CoreModule.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_45") .get(uri5 + "/dxjsmodule/15.e8eacdb7343203b896a5.chunk.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_46") .get(uri5 + "/WRSiteInterceptEngine/Asset.php?Module=SI_bJxHL5AcG8kjEjP&Version=13&Q_ORIGIN=https://ohpe-test3.optum.com&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_47") .get(uri5 + "/dxjsmodule/1.681145f504c635c85681.chunk.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_48") .get(uri5 + "/dxjsmodule/SliderModule.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_49") .get(uri5 + "/WRSiteInterceptEngine/Asset.php?Module=CR_4NnbdlHuUtZ8aTX&Version=2&Q_InterceptID=SI_bJxHL5AcG8kjEjP&Q_ORIGIN=https://ohpe-test3.optum.com&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+            .exec(http("request_50") .get(uri5 + "/WRQualtricsShared/Graphics/siteintercept/popup_shadow_transparent.png") .headers(Boo2Headers.headers_44))
+            .exec(http("request_51") .get(uri5 + "/WRQualtricsShared/Graphics/siteintercept/svg-close-btn-white-5.svg") .headers(Boo2Headers.headers_44))
+            .exec(http("request_52") .get(uri7 + "?IM=IM_6u2pyQ0FbiBBgpv") .headers(Boo2Headers.headers_52))
+        }
+
+//*********************
+//***** SearchPage
+//*********************
+
+        val SearchPage=group("SearchPage"){
+                exec(http("SEARCHPAGE") .get("/trans/images/bkShadow.jpg") .headers(Boo2Headers.headers_19))
+        }
+
+
+//*********************
+//***** SearchMember
+//*********************
+
+        val SearchMember=group("SearchMember"){
+                exec(http("SEARCH_MEMBER") .get("/trans/javascripts/ose/angularModule/bhp-elig-ang/v1.4/styles.bundle.css") .headers(Boo2Headers.headers_44))
+		.exec(http("request_55") .post("/trans/eligibilityBenefitsMemberNameSearchAngular.uol") .headers(Boo2Headers.headers_55)
+                        .formParam("firstName", "Perf")
+                        .formParam("lastName", "Testy")
+                        .formParam("state", "MD")
+                        .formParam("dobMonth", "01")
+                        .formParam("dobDay", "01")
+                        .formParam("dobYear", "1981")
+                        .formParam("monthEliCheck", "06")
+                        .formParam("dayEliCheck", "09")
+                        .formParam("yearEliCheck", "2021")
+                        .formParam("behavior", "FORWARD"))
+		.exec(http("request_63") .get("/trans/javascripts/ose/angularModule/bhp-elig-ang/v1.4/inline.bundle.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_64") .get("/trans/commons/new-ui/js/jquery-3.3.1.slim.min.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_65") .get("/trans/commons/new-ui/images/clinician_information/u640.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_66") .get("/trans/javascripts/ose/angularModule/bhp-elig-ang/v1.4/polyfills.bundle.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_67") .get("/trans/commons/new-ui/images/clinician_information/u612.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_68") .get("/trans/commons/new-ui/images/clinician_information/u614.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_69") .get("/trans/images/loading.gif") .headers(Boo2Headers.headers_19))
+		.exec(http("request_70") .get("/trans/commons/new-ui/images/clinician_information/u391.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_71") .get("/trans/commons/new-ui/images/clinician_information/u493.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_72") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u526_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_73") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u540_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_74") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u588_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_75") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u569_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_76") .get("/trans/commons/new-ui/images/clinician_information/primarynav2_changes_u497_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_77") .get("/trans/commons/new-ui/images/clinician_information/primarynav5_more_u491_mouseOver.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_78") .get("/trans/commons/new-ui/images/clinician_information/u372.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_79") .get("/trans/javascripts/ose/angularModule/bhp-elig-ang/v1.4/main.bundle.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_80") .get("/trans/javascripts/jquery-1.9.1.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_81") .get("/trans/javascripts/jquery-ui.js") .headers(Boo2Headers.headers_14))
+		.exec(http("request_82") .get("/trans/commons/new-ui/images/clinician_information/u493.png") .headers(Boo2Headers.headers_19))
+		.exec(http("request_83") .get(uri6 + "/?Q_ZID=ZN_0BMwYygqJ34McYZ&Q_LOC=https%3A%2F%2Fohpe-test3.optum.com%2Ftrans%2FeligibilityBenefitsMemberNameSearchAngular.uol&t=1623279075741") .headers(Boo2Headers.headers_42))
+		.exec(http("request_84") .post(uri5 + "/WRSiteInterceptEngine/Targeting.php?Q_ZoneID=ZN_0BMwYygqJ34McYZ&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_43) .formParam("Q_LOC", "https://ohpe-test3.optum.com/trans/eligBenefitPatientList.uol")) 
+		.exec(http("request_85") .get(uri5 + "/dxjsmodule/CoreModule.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_86") .get(uri5 + "/dxjsmodule/15.e8eacdb7343203b896a5.chunk.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_87") .get(uri5 + "/dxjsmodule/1.681145f504c635c85681.chunk.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_88") .get(uri5 + "/dxjsmodule/SliderModule.js?Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_89") .get(uri5 + "/WRSiteInterceptEngine/Asset.php?Module=SI_bJxHL5AcG8kjEjP&Version=13&Q_ORIGIN=https://ohpe-test3.optum.com&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_90") .get(uri5 + "/WRSiteInterceptEngine/Asset.php?Module=CR_4NnbdlHuUtZ8aTX&Version=2&Q_InterceptID=SI_bJxHL5AcG8kjEjP&Q_ORIGIN=https://ohpe-test3.optum.com&Q_CLIENTVERSION=1.52.0&Q_CLIENTTYPE=web") .headers(Boo2Headers.headers_44))
+		.exec(http("request_91") .get(uri5 + "/WRQualtricsShared/Graphics/siteintercept/popup_shadow_transparent.png") .headers(Boo2Headers.headers_44))
+		.exec(http("request_92") .get(uri5 + "/WRQualtricsShared/Graphics/siteintercept/svg-close-btn-white-5.svg") .headers(Boo2Headers.headers_44))
+		.exec(http("request_93") .get(uri7 + "?IM=IM_6u2pyQ0FbiBBgpv") .headers(Boo2Headers.headers_52))
+	}
+
+}
+

@@ -1,0 +1,100 @@
+
+import scala.concurrent.duration._
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+
+class Optum1 extends Simulation {
+
+	val httpProtocol = http
+		.baseUrl("https://coho-advocate-ui-coho-qa3.origin-elr-core-nonprod.optum.com")
+		.inferHtmlResources()
+		.acceptHeader("application/json, text/plain, */*")
+		.acceptEncodingHeader("gzip, deflate")
+		.acceptLanguageHeader("en-US,en;q=0.9")
+		.userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36")
+
+	val headers_0 = Map(
+		"Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", "Cache-Control" -> "max-age=0", "If-Modified-Since" -> "Fri, 19 Mar 2021 22:05:16 GMT", "Sec-Fetch-Dest" -> "document", "Sec-Fetch-Mode" -> "navigate", "Sec-Fetch-Site" -> "same-origin", "Sec-Fetch-User" -> "?1", "Upgrade-Insecure-Requests" -> "1", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+	val headers_1 = Map(
+		"Cache-Control" -> "no-cache", "Content-Type" -> "application/json", "Expires" -> "Sat, 01 Jan 2000 00:00:00 GMT", "Pragma" -> "no-cache", "Sec-Fetch-Dest" -> "empty", "Sec-Fetch-Mode" -> "cors", "Sec-Fetch-Site" -> "same-origin", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+	val headers_3 = Map(
+		"Accept" -> "*/*", "If-Modified-Since" -> "Fri, 19 Mar 2021 22:04:26 GMT", "Sec-Fetch-Dest" -> "script", "Sec-Fetch-Mode" -> "no-cors", "Sec-Fetch-Site" -> "same-origin", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+	val headers_4 = Map(
+		"Accept" -> "*/*", "If-Modified-Since" -> "Fri, 19 Mar 2021 22:04:14 GMT", "Origin" -> "https://coho-advocate-ui-coho-qa3.origin-elr-core-nonprod.optum.com", "Sec-Fetch-Dest" -> "font", "Sec-Fetch-Mode" -> "cors", "Sec-Fetch-Site" -> "same-origin", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+	val headers_5 = Map(
+		"Cache-Control" -> "no-cache",
+		"Content-Type" -> "application/json,application/json;charset=utf8,application/json", "Expires" -> "Sat, 01 Jan 2000 00:00:00 GMT", "Pragma" -> "no-cache", "Sec-Fetch-Dest" -> "empty", "Sec-Fetch-Mode" -> "cors", "Sec-Fetch-Site" -> "same-origin", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+	val headers_9 = Map(
+		"Accept" -> "*/*", "Sec-Fetch-Dest" -> "script", "Sec-Fetch-Mode" -> "no-cors", "Sec-Fetch-Site" -> "same-origin", "sec-ch-ua" -> """ Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90""", "sec-ch-ua-mobile" -> "?0")
+
+
+
+//	val ExpandFolders=group("ExpandFolders"){
+//               exec(http("EF_0") .get("/browser/list-folders?_=1537904149807") .headers(DMHeaders.headers_22))
+//                .exec(http("EF_1") .get("/browser/list-files?columnId=JOB_NAME&direction=ASC&from=0&rows=50&folderId=11&_=1537904149808") .headers(DMHeaders.headers_22))
+//                .exec(http("EF_2") .head("/user-activity") .headers(DMHeaders.headers_15))
+//                .exec(http("EF_3") .get("/browser/list-folders?_=1537904149809") .headers(DMHeaders.headers_22))
+//                .exec(http("EF_4") .get("/browser/list-files?columnId=JOB_NAME&direction=ASC&from=0&rows=50&folderId=11&_=1537904149810") .headers(DMHeaders.headers_22))
+//                .exec(http("EF_5") .head("/check-session") .headers(DMHeaders.headers_15))
+//                .exec(http("EF_6") .get("/browser/list-folders?_=1537904149811") .headers(DMHeaders.headers_22))
+//                .exec(http("EF_7") .get("/browser/list-files?columnId=JOB_NAME&direction=ASC&from=0&rows=50&folderId=11&_=1537904149812") .headers(DMHeaders.headers_22))
+//	}
+
+//	val scen_1 = scenario("Users_1").repeat(1,"x"){
+//
+//		val feeder = csv("TEMPNAMES.csv").circular
+//
+//		group("Scen_1"){
+//			repeat(1){
+//				exec(
+ //      				feed(feeder),
+//       			 	DMPages.Login)
+//			}
+//      			.repeat(ITR){
+//				exec(
+//				DMPages.FileBrowser, DMPages.CommonPause, 
+//				DMPages.NewFolder, DMPages.CommonPause,
+//				DMPages.FilterbyWorkbook, DMPages.CommonPause)
+//			}
+//     			.repeat(1){
+//				exec(
+//				DMPages.Logout)
+//			}
+//        	}
+//	}
+
+	val Scen_1 = scenario("Optum1")
+
+		//group("Scen_1")
+	//	  val BasePage=group("BasePage"){
+			.exec(http("BasePage") .get("/member/search") .headers(headers_0))
+		  	.exec(http("request_1") .get("/assets/application.json") .headers(headers_1))
+            		.exec(http("request_2") .get("/assets/application.json") .headers(headers_1))
+            		.exec(http("request_3") .get("/3-es2015.62eec2aa178c07cbaa37.js") .headers(headers_3))
+            		.exec(http("request_4") .get("/micro-interaction-icons.b0f34942364beb255599.woff") .headers(headers_4))
+            		.exec(http("request_5") .get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null") .headers(headers_5))
+	//	}
+		//.pause(1)
+		//.exec(http("Search_1") .get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=catholic&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null") .headers(headers_5))
+		//.pause(1)
+		//.exec(http("Search_2") .get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null") .headers(headers_5))
+		//.pause(1)
+		//.exec(http("Search_3") .get("/star/api/v1/api/v1/episode-of-care/search/members?searchTerm=morton&size=10&page=0&sort=ecv.create_date_time,desc&userLogin=null") .headers(headers_5))
+		//.pause(1)
+		//.exec(http("Search_4") .get("/2-es2015.d0c15ccc1765470f3ac7.js") .headers(headers_9) .resources(http("request_10") .get("/1-es2015.f79d52455e4ede2e6e1b.js") .headers(headers_9),
+            //http("request_11") .get("/9-es2015.9fd2d8af57b901a523b8.js") .headers(headers_9),
+            //http("request_12") .get("/star/api/v1/api/v1/concierge-accounts") .headers(headers_1),
+            //http("request_13") .get("/star/api/v1/api/v1/episode-of-care/members/census?memberCdbXrefId=457805839&memberPartitionId=139&condensedView=true&size=5&page=0&sort=createDateTime,desc&regularSort=false&formType=null") .headers(headers_5)))
+	//.pause(1)
+	//.exec(http("request_14") .get("/star/api/v1/api/v1/episode-of-care/members/census?memberCdbXrefId=457805839&memberPartitionId=139&condensedView=true&size=5&page=1&sort=createDateTime,desc&regularSort=true&formType=null") .headers(headers_5))
+		
+		
+	setUp(Scen_1.inject(atOnceUsers(1))).protocols(httpProtocol)
+}

@@ -1,0 +1,32 @@
+package StarTest.Framework
+
+import scala.io.Source
+import scala.concurrent.duration._
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.jdbc.Predef._
+import scala.util.Random
+import io.gatling.commons.validation._
+import org.apache.commons._
+
+class StarSim extends Simulation {
+
+        val ITR = System.getenv("ITERATIONS").toInt
+        val RAMP = System.getenv("RAMP").toInt
+        val Users_1 = System.getenv("SIMULATION_1").toInt
+        val Users_2 = System.getenv("SIMULATION_2").toInt
+        val Users_3 = System.getenv("SIMULATION_3").toInt
+	val API = 0
+	
+	val HttpProtocol = http
+		.baseUrl("https://coho-api-star-stg.origin-ctc-core.optum.com")
+		//.baseUrl("https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal")
+		.acceptHeader("application/json;q=0.9,*/*;q=0.8")
+		.acceptLanguageHeader("en-US,en;q=0.5")
+		.acceptEncodingHeader("gzip, deflate")
+
+
+	if (API == 0){
+		setUp(StarTestScenario.StarTestALL.inject(rampUsers(Users_1) during (RAMP)).protocols(HttpProtocol))
+	}
+}

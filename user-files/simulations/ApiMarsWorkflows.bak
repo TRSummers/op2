@@ -1,0 +1,5 @@
+package com.optum.gatlingframework.workflows
+
+object ApiMarsWorkflows extends BaseWorkflow {
+}
+

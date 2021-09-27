@@ -1,0 +1,87 @@
+      host = "https://coho-api-star-stg.origin-ctc-core.optum.com"
+
+https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal"
+
+GetClinicianReview 
+/api/v1/clinical-review/${ClinicalReviewId}
+"ApiLionRum_GetClinicianReview.csv"
+"https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal/api/v1/clinical-review/${ClinicalReviewId}
+https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal/api/v1/clinical-review/0020229920299)
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+    GetStarNote {
+      httpMethod = "get"
+      uri = "/api/v1/star-note/${ClinicalReviewId}/true"
+      data {
+        s3 = ["ApiLionRum_GetClinicianReview.csv"]
+        useJWT = true
+        PikeJWTToken {
+          url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal/api/v1/star-note/${ClinicalReviewId}/true"
+          //url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal/api/v1/star-note/${ClinicalReviewId}/true"
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+    GetEpisodeOfCare {
+      httpMethod = "get"
+      uri = "/api/v1/episode-of-care/${episodeId}/census"
+      data {
+        s3 = ["ApiLionRum_GetEpisodeOfCare.csv"]
+        useJWT = true
+        PikeJWTToken {
+          url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal"
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+    GetStarUIMemberList {
+      httpMethod = "get"
+      uri = "/api/v1/episode-of-care/search/members?searchTerm=&size=50&page=0&sort=member_last_name,asc"
+      data {
+        useJWT = true
+        PikeJWTToken {
+          url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal"
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+    GetStarUIMemberDetail {
+      httpMethod = "get"
+      uri = "/api/v1/episode-of-care/members/${memberId}/census?size=5&page=0&sort=createDateTime,desc,"
+      data {
+        s3 = ["ApiJarJar_MemberSearch.csv"]
+        useJWT = true
+        PikeJWTToken {
+          url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal"
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+    GetChatTranscript {
+      httpMethod = "get"
+      uri = "/api/v1/chat-transcript/${ClinicalReviewId}"
+      data {
+        s3 = ["ApiLionRum_GetClinicianReview.csv"]
+        useJWT = true
+        PikeJWTToken {
+          url = "https://pike-api-star-stg.origin-ctc-core.optum.com/api/v1/security/portal"
+          actor = ""
+          userName = "1033320638"
+          prprid = "FAC600130300"
+        }
+      }
+    }
+  }
+}

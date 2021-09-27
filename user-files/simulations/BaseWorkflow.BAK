@@ -1,0 +1,105 @@
+package com.optum.gatlingframework.workflows
+
+import com.optum.gatlingframework.apis.BaseApi
+import com.optum.gatlingframework.util.Util
+import com.typesafe.config.ConfigFactory
+import io.gatling.core.action.builder.ActionBuilder
+import io.gatling.core.structure.ChainBuilder
+
+import scala.collection.JavaConverters._
+import scala.concurrent.duration._
+
+/**
+ * Created by ncarrol3 on 1/30/2018.
+ */
+trait BaseWorkflow {
+  val classNameFull = this.getClass.getName.replace("$", "")
+  val applicationConfig = ConfigFactory.load("application.conf")
+  var workflowConfLocation = "workflows/"
+  try {
+    workflowConfLocation = applicationConfig.getString("global.configLocation.workflows")
+  } catch {
+    case x: com.typesafe.config.ConfigException => workflowConfLocation="workflows/"
+  }
+
+  // needed for intializing workflow
+  var profile = Util.getConfigOrDefaultString("global", "a", "profile", null, "a", "a", applicationConfig)
+  if(profile != null)
+    profile = profile.toLowerCase
+
+  var environment_ = Util.getConfigOrDefaultString("global", "a", "environment", null, profile, "a", applicationConfig)
+  if(environment_ != null)
+    environment_ = environment_.toLowerCase
+
+  val className = classNameFull.substring(classNameFull.lastIndexOf(".") + 1, classNameFull.length)
+  val workflowConfig = ConfigFactory.load(workflowConfLocation + className + ".conf")
+  var defaultApiClass = Util.getConfigOrDefaultString("workflow", "a", "defaultApiClass", className, profile, environment_, workflowConfig)
+
+  var WORKFLOWS = Array[String]()
+  val defaultWorkflows = Util.getConfigOrDefaultStringList("workflow", "a", "defaultWorkflows", className, profile, environment_, workflowConfig)
+  if (defaultWorkflows != null)
+    WORKFLOWS = defaultWorkflows.asScala.toArray
+
+
+  def getWorkFlowThrottled(workflow: String, profile: String, environment: String, targetAps: Double): ChainBuilder = {
+
+    val chain = getWorkFlowChain(workflow, profile, environment)
+
+    if (targetAps != null && targetAps > 0) {
+      chain.pace((1000.0 / targetAps).toLong milliseconds)
+    }
+    else {
+      chain
+    }
+  }
+
+  def getWorkFlowChain(workflow: String, profile: String, environment: String): ChainBuilder = {
+    val workflowChain = workflow.split("->")
+
+    val emptyActionBuilder = List[ActionBuilder]()
+    var chain = ChainBuilder(emptyActionBuilder)
+
+    workflowChain.foreach {
+      workflowStep =>
+      try {
+         chain = chain.exec(getWorkFlow(workflowStep, profile, environment))
+      } catch
+        {
+          case x: scala.MatchError =>
+          {
+            require(defaultApiClass != null, className + " failed to intialize apidetail, defaultApiClass is null")
+            chain = chain.exec(BaseApi.getDefaultApi(workflowStep,defaultApiClass, profile, environment))
+          }
+        }
+    }
+
+    chain
+  }
+
+  def getWorkFlow(workflow: String, profile: String, environment: String): ChainBuilder = workflow match {
+    case "default case" => throw new IllegalArgumentException
+  }
+
+  def getWorkflowDefaultDetails(workflowName: String, profile: String, environment: String): WorkflowDetails = {
+
+    var prodMult = Util.getConfigOrDefaultDouble("workflow", workflowName, "prodMult", className, profile, environment, workflowConfig)
+    if(prodMult == null)
+      prodMult=1.0
+    var users = Util.getConfigOrDefaultInt("workflow", workflowName, "users", className, profile, environment, workflowConfig)
+    if (users == null)
+      users = 0
+    users = (users * prodMult).toInt
+    var repeats = Util.getConfigOrDefaultInt("workflow", workflowName, "repeats", className, profile, environment, workflowConfig)
+    if (repeats == null)
+      repeats = 0
+    val rampUpSeconds = Util.getConfigOrDefaultInt("workflow", workflowName, "rampUpSeconds", className, profile, environment, workflowConfig)
+    var tpsThrottle = Util.getConfigOrDefaultDouble("workflow", workflowName, "tpsThrottle", className, profile, environment, workflowConfig)
+    if (tpsThrottle == null)
+      tpsThrottle = 0.0
+    tpsThrottle = tpsThrottle * prodMult
+    val tpsRampUpSeconds = Util.getConfigOrDefaultInt("workflow", workflowName, "tpsRampUpSeconds", className, profile, environment, workflowConfig)
+    val tpsThottleDuration = Util.getConfigOrDefaultInt("workflow", workflowName, "tpsThottleDuration", className, profile, environment, workflowConfig)
+
+    new WorkflowDetails(workflowName, users, repeats, rampUpSeconds, tpsThrottle, tpsRampUpSeconds, tpsThottleDuration)
+  }
+}

@@ -1,0 +1,1 @@
+{"operationName":"GetProvider","variables":{"serviceArea":"Middlesex"},"query":"query GetProvider($serviceArea: String) {\n  bh_crisis_rspn_prov(\n    where: {bh_crisis_rspn_prov_srvc_areas: {bh_crisis_rspn_srvc_area_nm: {_eq: $serviceArea}}}\n  ) {\n    bh_crisis_rspn_prov_desc\n    __typename\n  }\n}\n"}
